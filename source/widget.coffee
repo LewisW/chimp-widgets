@@ -36,10 +36,6 @@ class Widget extends Base
     () =>
 # Add selector as first argument
       callArgs.unshift @selector
-      # Add the handler function as last argument
-      callArgs.push (error, result) =>
-# Provide the result value for convenience!
-        if error? then reject(error) else fulfill(result)
       # Invoke the webdriver.io API method with prepared args
       @driver[method].apply @driver, callArgs
 
@@ -64,7 +60,11 @@ class Widget extends Base
   # The generated methods are running in the context of the widget!
   generateApiMethod = (method) -> return ->
     callArgs = Array.prototype.slice.call arguments
-    @_wrapWebdriverApi method, callArgs
+    # Add selector as first argument
+    callArgs.unshift @selector
+
+    # Invoke the webdriver.io API method with prepared args
+    @driver[method].apply @driver, callArgs
 
   Widget.prototype[method] = generateApiMethod(method) for method in Widget.API
 
