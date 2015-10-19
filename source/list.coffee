@@ -18,9 +18,9 @@ class List extends Widget
       return widget if filter(widget)
 
   findByText: (text) ->
-    @findWhere (widget) => widget.hasText(text).then -> widget
+    @findWhere (widget) => widget if widget.hasText(text)
 
-  map: (mapper) -> @widgets.then (widgets) => widgets.map mapper
+  map: (mapper) -> @widgets.map mapper
 
   _wrapAsWidgets: (elements) =>
     return elements.map (element, index) =>
