@@ -11,7 +11,7 @@ class List extends Widget
     @Widget = widget ? Widget
     @itemSelector ?= itemSelector
     @_nestedItemsSelector = "#{@selector} #{@itemSelector}"
-    @widgets = @_wrapAsWidgets(@driver.elements @_nestedItemsSelector)
+    @widgets = @_wrapAsWidgets(@driver.elements @_nestedItemsSelector).value
 
   findWhere: (filter) ->
     for widget of @widgets
