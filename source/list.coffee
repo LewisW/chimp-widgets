@@ -14,7 +14,7 @@ class List extends Widget
     @widgets = @_wrapAsWidgets(@driver.elements(@_nestedItemsSelector).value)
 
   findWhere: (filter) ->
-    for widget of @widgets
+    for widget in @widgets
       return widget if filter(widget)
 
   findByText: (text) ->
@@ -24,7 +24,7 @@ class List extends Widget
 
   _wrapAsWidgets: (elements) =>
     return elements.map (element, index) =>
-# Return widget with scoped index selector
+      # Return widget with scoped index selector
       new @Widget "#{@_nestedItemsSelector}:nth-child(#{index+1})"
 
 module.exports = List
